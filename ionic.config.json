@@ -1,0 +1,7 @@
+{
+  "name": "shifttosmart-teacher",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
