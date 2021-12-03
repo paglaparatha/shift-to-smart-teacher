@@ -1,0 +1,54 @@
+<ion-content>
+  <main>
+    <h1 class="ion-padding" style="font-weight: bolder;">Library</h1>
+
+    <ion-grid class="ion-no-padding" *ngIf="library; else load">
+      <ion-row>
+        <ion-col size="6" *ngFor="let x of library.books">
+          <ion-card mode="ios">
+            <ion-card-header class="ion-text-center">
+              <ion-card-title>{{ x.book[0] }}</ion-card-title>
+              <br>
+              <ion-card-subtitle>
+                {{ x.book }} <br><br>
+                <small>- {{ x.author }}</small>
+              </ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-card-content>
+              <p><small><em>Published: {{ x.published | date }}</em></small></p>
+              <p><b>Avaliable: {{ x.qty }}</b></p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ng-template #load>
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ion-col size="6" *ngFor="let i of [].constructor(10)">
+            <ion-card mode="ios">
+              <ion-card-content>
+                <ion-skeleton-text animated style="display: block; margin: auto; height: 1.5rem; width: 2rem;">
+                </ion-skeleton-text>
+                <br>
+                <ion-skeleton-text animated></ion-skeleton-text>
+                <br>
+                <ion-skeleton-text animated style="height: 0.8rem;"></ion-skeleton-text>
+                <br>
+                <ion-skeleton-text animated style="height: 0.7rem;"></ion-skeleton-text>
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ng-template>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </main>
+</ion-content>

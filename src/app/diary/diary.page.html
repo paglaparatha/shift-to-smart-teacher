@@ -1,0 +1,68 @@
+<ion-content>
+  <main>
+    <form (ngSubmit)="onUploadDiary(form)" #form="ngForm" class="ion-padding">
+      <h1 style="font-weight: bolder;">Add Homework</h1>
+      <ion-item>
+        <ion-label position="floating">Select Subject*</ion-label>
+        <ion-select name="subject" required ngModel *ngIf="subjects" interface="action-sheet">
+          <ion-select-option [value]="s.id" *ngFor="let s of subjects">{{ s.subject | titlecase }} for Class {{ s.class
+            }} '{{ s.section | uppercase }}'</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <br>
+
+      <ion-item>
+        <ion-label position="floating">Enter Description*</ion-label>
+        <ion-textarea name="description" required ngModel></ion-textarea>
+      </ion-item>
+      <br>
+
+      <ion-item>
+        <ion-label position="stacked">Upload File (if any)</ion-label>
+        <ion-input type="file" name="file" (change)="handleFileInput($event.target)" accept="application/pdf" ngModel>
+        </ion-input>
+      </ion-item>
+      <br>
+
+      <ion-item>
+        <ion-label position="floating">Enter URL</ion-label>
+        <ion-input type="url" name="link" ngModel></ion-input>
+      </ion-item>
+      <br>
+
+      <ion-button type="submit" expand="full" [disabled]="!form.valid">Upload to Diary</ion-button>
+    </form>
+
+    <ng-container *ngIf="diary">
+      <ng-container *ngIf="diary.length > 0">
+        <ion-card mode="ios" *ngFor="let d of diary">
+          <ion-card-header>
+            <ion-card-title>{{ d.subject | titlecase }}, <small>Class {{ d.class }} '{{ d.section | uppercase
+                }}'</small></ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p>{{ d.description }}
+              <br>
+              <a [href]="d.link" target="_blank" *ngIf="d.link">{{ d.link }}</a>
+            </p>
+            <br>
+
+            <ion-grid class="ion-no-padding">
+              <ion-row>
+                <ion-col size="6" *ngIf="d.file">
+                  <a [href]="getSafeUrl(d.file)" target="_blank">
+                    <ion-button expand="full" size="small">View File</ion-button>
+                  </a>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-button expand="full" size="small" color="danger" (click)="onDeleteDiary(d._id)">Delete</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+    </ng-container>
+  </main>
+</ion-content>

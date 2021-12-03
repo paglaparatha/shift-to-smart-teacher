@@ -1,0 +1,49 @@
+<ion-content>
+  <main>
+    <h1 class="ion-padding" style="font-weight: bolder;">Your Tuitions</h1>
+    <ng-container *ngIf="tuitions; else load">
+      <ng-container *ngIf="tuitions.length > 0; else no">
+        <ion-card mode="ios" *ngFor="let t of tuitions">
+          <ion-card-header>
+            <ion-card-title>{{ t.subject }}</ion-card-title>
+            <br>
+            <ion-card-subtitle>{{ t.subject }} for class {{ t.class }}</ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-grid class="ion-no-padding">
+              <ion-row>
+                <ion-col size="6">
+                  <ion-button expand="full" (click)="onViewStudents(t)">View Students</ion-button>
+                </ion-col>
+                <ion-col size="6">
+                  <a [href]="getSafeUrl(t.syllabus)" target="_blank" style="text-decoration: none;">
+                    <ion-button expand="full" mode="ios" color="warning">View Syllabus</ion-button>
+                  </a>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+
+      <ng-template #no>
+        <p class="ion-padding ion-text-center">Looks like you have not been assigned any tuitions for now.</p>
+      </ng-template>
+    </ng-container>
+
+    <ng-template #load>
+      <ion-card mode="ios" *ngFor="let x of [].constructor(10)">
+        <ion-card-header mode="md">
+          <ion-skeleton-text animated style="height: 2rem; width: 100%;"></ion-skeleton-text>
+          <br>
+          <ion-skeleton-text animated style="height: 1rem; width: 60%;"></ion-skeleton-text>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-skeleton-text animated style="height: 2.5rem; width: 100%;"></ion-skeleton-text>
+        </ion-card-content>
+      </ion-card>
+    </ng-template>
+  </main>
+</ion-content>

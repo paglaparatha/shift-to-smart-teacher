@@ -1,0 +1,64 @@
+<ion-content>
+  <main>
+    <ion-card mode="ios">
+      <ion-card-header>
+        <ion-card-title>Attendance</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-item lines="none">
+          <ion-label>Select Date</ion-label>
+          <ion-datetime [(ngModel)]="date" (ionChange)="onChangeDate($event)" [max]="currentDate"
+            placeholder="Select Date"></ion-datetime>
+        </ion-item>
+        <br>
+        <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+          <ion-grid class="ion-no-padding ion-no-margin">
+            <ion-row>
+              <ion-col size="2"></ion-col>
+              <ion-col size="2"><b>SNo.</b></ion-col>
+              <ion-col size="4"><b>Name</b></ion-col>
+              <ion-col size="4"><b>Student Id</b></ion-col>
+              <ion-col size="12"><br></ion-col>
+            </ion-row>
+            <ion-row *ngIf="students; else load">
+              <ng-container *ngFor="let s of students; let i = index;">
+                <ion-col size="2">
+                  <input type="checkbox" [name]="'student_present['+i+']'" class="check" [(ngModel)]="s.present"
+                    ngModel>
+                  <input type="text" style="display: none;" [name]="'student_name['+i+']'" required [(ngModel)]="s.name"
+                    ngModel>
+                  <input type="text" style="display: none;" [name]="'student_id['+i+']'" required [(ngModel)]="s.id"
+                    ngModel>
+                </ion-col>
+                <ion-col size="2">{{ i + 1 }}</ion-col>
+                <ion-col size="4">{{ s.name }}</ion-col>
+                <ion-col size="4">{{ s['id-number'] }}</ion-col>
+              </ng-container>
+            </ion-row>
+
+            <ng-template #load>
+              <ion-row *ngFor="let i of [].constructor(10)">
+                <ion-col size="2">
+                  <ion-skeleton-text animated style="width: 1rem;"></ion-skeleton-text>
+                </ion-col>
+                <ion-col size="2">
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-col>
+                <ion-col size="4">
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-col>
+                <ion-col size="4">
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-col>
+              </ion-row>
+            </ng-template>
+          </ion-grid>
+          <br>
+          <br>
+          <ion-button type="submit" expand="full" [disabled]="!form.valid">Take Attendance</ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </main>
+</ion-content>

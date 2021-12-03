@@ -1,0 +1,63 @@
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <main>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-card mode="ios">
+            <ion-card-header>
+              <ion-card-title>My Information</ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+              <ion-list mode="md">
+                <ion-item>
+                  <b>Name:</b>&nbsp;{{ user.teacher.name }}
+                </ion-item>
+                <ion-item>
+                  <b>Email:</b>&nbsp;{{ user.teacher.email }}
+                </ion-item>
+                <ion-item>
+                  <b>Id No.:</b>&nbsp;{{ user.teacher['id-number'] }}
+                </ion-item>
+                <ion-item *ngIf="user.teacher['class-teacher']==1">
+                  <b>Class:</b>&nbsp;{{ user.teacher.class }} "{{ user.teacher.section | uppercase }}"
+                </ion-item>
+                <ion-item>
+                  <b>School:</b>&nbsp;{{ user.school.name }}
+                </ion-item>
+                <ion-item>
+                  <b>Mobile:</b>&nbsp;{{ user.teacher.mobile }}
+                </ion-item>
+                <ion-item>
+                  <b>Alt-Mobile:</b>&nbsp;{{ user.teacher['alt-mobile'] }}
+                </ion-item>
+                <ion-item>
+                  <b>Address:</b>&nbsp;{{ user.teacher.address }}
+                </ion-item>
+                <ion-item>
+                  <b>Blood Group:</b>&nbsp;{{ user.teacher.blood }} <ion-icon name="water" color="danger"></ion-icon>
+                </ion-item>
+              </ion-list>
+
+              <ion-list>
+                <ion-list-header>
+                  My Subjects
+                </ion-list-header>
+                <ion-item *ngFor="let s of user.subjects" lines="none">
+                  <ion-label>
+                    <h1>{{ s.subject }}</h1>
+                    <small><b>Class: {{ s.class }} '{{ s.section | uppercase }}'</b></small>
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </main>
+</ion-content>

@@ -1,0 +1,22 @@
+<ion-content>
+  <main>
+    <h1 class="ion-padding" style="font-weight: bolder;">View Syllabus</h1>
+    <ng-container *ngIf="syllabus">
+      <ng-container *ngIf="syllabus.length > 0">
+        <ion-card mode="ios" *ngFor="let s of syllabus">
+          <ion-card-header>
+            <ion-card-title>Class {{ s.class }} '{{ s.section | uppercase}}'</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p>View syllabus for class {{ s.class }} '{{ s.section | uppercase}}'</p>
+            <br>
+            <a [href]="path + s.syllabus" target="_blank">
+              <ion-button expand="full">View Syllabus</ion-button>
+            </a>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+    </ng-container>
+  </main>
+</ion-content>

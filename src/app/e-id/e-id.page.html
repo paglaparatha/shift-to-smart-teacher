@@ -1,0 +1,38 @@
+<ion-content>
+  <main>
+    <ion-card mode="ios" *ngIf="user">
+      <img src="assets/logo-full.png" alt="" class="logo-centered-l">
+
+      <ion-card-header class="ion-text-center">
+        <ion-card-title>
+          {{ user.teacher.name }}
+        </ion-card-title>
+        <ion-card-subtitle *ngIf=" user.teacher['class-teacher'] == 1 ">
+          Class Teacher: {{ user.teacher.class }} "{{ user.teacher.section }}" <br>
+          {{ user.school.name }}
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-item lines="none">
+          <h2>Email: <a href="mailto:{{ user.teacher.email }}">{{ user.teacher.email }}</a></h2>
+        </ion-item>
+        <ion-item lines="none">
+          <h2>Mobile: <a href="tel:{{ user.teacher.mobile }}">{{ user.teacher.mobile }}</a></h2>
+        </ion-item>
+        <ion-item lines="none">
+          <h2>Alt-Mobile: <a href="tel:{{ user.teacher['alt-mobile'] }}">{{ user.teacher['alt-mobile'] }}</a></h2>
+        </ion-item>
+        <ion-item lines="none">
+          <h2>Blood Group: {{ user.teacher.blood }} <ion-icon name="water" slot="end" color="danger"></ion-icon>
+          </h2>
+        </ion-item>
+        <br>
+        <br>
+        <p class="ion-text-center">
+          <a href="https://shifttosmart.com">www.shifttosmart.com</a>
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </main>
+</ion-content>

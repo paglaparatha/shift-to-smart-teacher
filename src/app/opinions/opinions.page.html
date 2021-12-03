@@ -1,0 +1,57 @@
+<ion-content>
+  <main>
+    <form (ngSubmit)="onSubmit(form)" *ngIf="polls; else noPoll" #form="ngForm">
+      <ng-container *ngFor="let p of polls">
+        <ion-card mode="ios" *ngIf="!(p._id)">
+          <ion-card-header>
+            <ion-card-title>{{ p.text }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content mode="md">
+            <ion-radio-group name="opt" ngModel required>
+              <ion-item lines="none">
+                <ion-label>Yes</ion-label>
+                <ion-radio slot="start" [value]=" p.oId + '*' + '1' "></ion-radio>
+              </ion-item>
+
+              <ion-item lines="none">
+                <ion-label>No</ion-label>
+                <ion-radio slot="start" [value]=" p.oId + '*' + '0' "></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+            <br>
+            <ion-button type="submit" expand="full">Submit</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+    </form>
+
+    <ng-container *ngIf="polls; else load">
+      <ion-card mode="ios">
+        <ion-card-content>
+          <ion-list>
+            <ion-list-header>Previous Polls</ion-list-header>
+            <ng-container *ngFor="let p of polls">
+              <ion-item *ngIf="p.user" lines="none">
+                <ion-icon slot="start" [name]="p.opt == 1 ? 'checkmark' : 'close'" [color]="p.opt == 1 ? 'success' : 'danger'"></ion-icon>
+                <ion-label>{{ p.text }}</ion-label>
+              </ion-item>
+            </ng-container>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+
+    <ng-template #noPoll>
+      <h1 class="ion-text-center">No Polls exist right now</h1>
+    </ng-template>
+
+    <ng-template #load>
+      <div class="loader">
+        <ion-item lines="none" class="ion-padding">
+          <ion-spinner slot="start"></ion-spinner>
+          <ion-label>Loading...</ion-label>
+        </ion-item>
+      </div>
+    </ng-template>
+  </main>
+</ion-content>

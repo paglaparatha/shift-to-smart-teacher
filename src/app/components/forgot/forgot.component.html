@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Forgot Password</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="onSubmitEmail()" #form1="ngForm" *ngIf="state === 'email'">
+    <ion-item>
+      <ion-label position="floating">Enter Email*</ion-label>
+      <ion-input name="email" email type="email" [(ngModel)]="email" required ngModel></ion-input>
+    </ion-item>
+    <br>
+
+    <ion-button type="submit" [disabled]="!form1.valid" expand="full">Continue</ion-button>
+  </form>
+
+  <form (ngSubmit)="onSubmitOTP()" #form2="ngForm" *ngIf="state === 'otp'">
+    <ion-item>
+      <ion-label position="floating">Enter OTP*</ion-label>
+      <ion-input name="text" type="text" maxlength="6" minlength="6" pattern="[0-9]{6}" [(ngModel)]="otp" required
+        ngModel></ion-input>
+    </ion-item>
+    <br>
+
+    <ion-button type="submit" [disabled]="!form2.valid" expand="full">Verify</ion-button>
+  </form>
+
+  <form (ngSubmit)="onSubmitPassword()" #form3="ngForm" *ngIf="state === 'password'">
+    <ion-item>
+      <ion-label position="floating">Enter New Password*</ion-label>
+      <ion-input name="npass1" type="password" ngModel required minlength="8" [(ngModel)]="npass1"></ion-input>
+    </ion-item>
+    <small class="invalid-feedback" *ngIf="npass1">Password length must be greater than 7.</small>
+    <br>
+
+    <ion-item>
+      <ion-label position="floating">Confirm New Password*</ion-label>
+      <ion-input name="npass2" type="password" ngModel required minlength="8" [(ngModel)]="npass2"></ion-input>
+    </ion-item>
+    <small class="invalid-feedback" *ngIf="npass2 && (npass1 !== npass2)">Passwords do not match.</small>
+    <br>
+    <br>
+
+    <ion-button type="submit" expand="full" [disabled]="!form3.valid || (npass1 !== npass2)">Change</ion-button>
+  </form>
+</ion-content>

@@ -1,0 +1,55 @@
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <main>
+    <h1 class="ion-padding" style="font-weight: bolder;">Notice Board</h1>
+    <ng-container *ngIf="notice; else load">
+      <ion-card mode="ios" *ngFor="let not of notice">
+        <ion-card-header mode="md">
+          <ion-grid class="ion-no-padding">
+            <ion-row class="ion-align-items-center">
+              <ion-col size="3" class="ion-text-center">
+                <ion-icon name="calendar" size="large"></ion-icon>
+                <br>
+                <small>{{ not.date | date }}</small>
+              </ion-col>
+              <ion-col size="9" class="ion-text-center">
+                <ion-card-title>{{ not.title | titlecase }}</ion-card-title>
+                <br>
+              </ion-col>
+              <ion-col size="12">
+                <br>
+                <ion-button expand="full" [routerLink]="['view', not.id]" mode="ios">View Notice</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-header>
+      </ion-card>
+    </ng-container>
+    <ng-template #load>
+      <ion-card mode="ios" *ngFor="let x of [].constructor(10)">
+        <ion-card-header mode="md">
+          <ion-grid class="ion-no-padding">
+            <ion-row class="ion-align-items-center">
+              <ion-col size="3" class="ion-text-center">
+                <ion-icon name="calendar" size="large"></ion-icon>
+                <br>
+                <small><ion-skeleton-text animated></ion-skeleton-text></small>
+              </ion-col>
+              <ion-col size="9" class="ion-text-center">
+                <ion-card-title><ion-skeleton-text animated style="width: 60%; height: 1rem; margin: auto;"></ion-skeleton-text></ion-card-title>
+                <br>
+              </ion-col>
+              <ion-col size="12">
+                <br>
+                <ion-skeleton-text animated style="width: 100%; height: 2rem;"></ion-skeleton-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-header>
+      </ion-card>
+    </ng-template>
+  </main>
+</ion-content>

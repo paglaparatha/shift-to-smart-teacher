@@ -1,0 +1,34 @@
+<ion-content>
+  <main>
+    <ion-card mode="ios" *ngIf="notice">
+      <ion-card-header>
+        <ion-card-title>{{ notice.title | titlecase }}</ion-card-title>
+        <ion-card-subtitle>{{ notice.date | date }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{ notice.description }}
+        <br>
+        <br>
+        <ng-container *ngIf="notice.file.length > 1">
+          <a [href]="getSafeUrl(notice.file)" target="_blank">
+            <ion-button expand="full">VIEW</ion-button>
+          </a>
+        </ng-container>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card mode="ios" *ngIf="!notice">
+      <ion-card-header>
+        <ion-card-title><ion-skeleton-text animated style="height: 1rem;"></ion-skeleton-text></ion-card-title>
+        <ion-card-subtitle><ion-skeleton-text animated style="width: 40%;"></ion-skeleton-text></ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-skeleton-text animated style="height: 0.8rem;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="height: 0.8rem;"></ion-skeleton-text>
+        <br>
+        <br>
+        <ion-skeleton-text animated style="height: 2rem;"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+  </main>
+</ion-content>

@@ -24,3 +24,65 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.logo {
+  height: 3rem;
+}
+
+.logo-centered-l {
+  display: block;
+  margin: 1rem auto;
+  height: 5rem;
+  width: 5rem;
+  object-fit: contain;
+}
+
+main {
+  padding-top: 3.5rem;
+  width: 50%;
+  margin: auto;
+  min-height: 100%;
+}
+
+@media (max-width: 767px) {
+  main {
+    width: 100%;
+  }
+}
+
+.invalid-feedback {
+  color: var(--ion-color-danger);
+  display: block;
+  padding: 0.5rem 1rem;
+  visibility: hidden;
+}
+
+form {
+  .ion-dirty.ion-invalid + .invalid-feedback {
+    visibility: visible;
+  }
+}
+
+.blue {
+  background: var(--ion-color-primary);
+}
+
+.indigo {
+  background: var(--ion-color-tertiary);
+}
+
+.red {
+  background: var(--ion-color-danger);
+}
+
+.green {
+  background: var(--ion-color-success);
+}
+
+.sky {
+  background: var(--ion-color-secondary);
+}
+
+.yellow {
+  background: var(--ion-color-warning);
+}

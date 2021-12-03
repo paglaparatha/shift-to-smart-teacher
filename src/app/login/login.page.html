@@ -1,0 +1,34 @@
+<ion-content>
+  <main>
+
+    <div class="card">
+      <h1 class="ion-text-center ion-padding" style="font-weight: bolder;">School Management System</h1>
+      <div class="logo-img">
+        <img src="assets/logo-full.png" alt="" class="logo-centered-l">
+      </div>
+      <form (ngSubmit)="login(form)" #form="ngForm">
+        <ion-text color="primary" class="ion-text-center"><h4>Faculty Login</h4></ion-text>
+        <ion-item>
+          <ion-label position="floating">Enter Email</ion-label>
+          <ion-input name="email" type="email" email ngModel required></ion-input>
+        </ion-item>
+        <small class="invalid-feedback">Enter Valid Email.</small>
+
+        <ion-item>
+          <ion-label position="floating">Enter Password</ion-label>
+          <ion-input name="password" type="password" ngModel required></ion-input>
+        </ion-item>
+        <small class="invalid-feedback">Enter Password.</small>
+
+        <ion-text color="danger" class="ion-text-center" style="user-select: none; cursor: pointer;" (click)="onForgot()"><p>Forgot Password?</p></ion-text>
+        <br>
+
+        <ion-button type="submit" expand="full" size="large" [disabled]="!form.valid">
+          <ion-icon name="log-in" slot="start"></ion-icon>
+          Login &nbsp;<ion-spinner slot="end" *ngIf="loading"></ion-spinner>
+        </ion-button>
+      </form>
+    </div>
+
+  </main>
+</ion-content>

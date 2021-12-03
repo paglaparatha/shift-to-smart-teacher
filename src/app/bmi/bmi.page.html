@@ -1,0 +1,42 @@
+<ion-content>
+  <main>
+    <div style="padding: 0.5rem;">
+      <ion-card mode="ios" class="ion-no-margin">
+        <ion-card-header>
+          <ion-card-title>BMI Calculator</ion-card-title>
+        </ion-card-header>
+        <ion-card-content mode="md">
+          <form (ngSubmit)="calculateBMI(form)" #form="ngForm">
+            <ion-item>
+              <ion-label position="floating">Enter Height In cm</ion-label>
+              <ion-input type="number" name="height" pattern="^[1-9]{1}[0-9]*" ngModel required #height="ngModel">
+              </ion-input>
+            </ion-item>
+            <small style="color: red" *ngIf="!height.valid">Please Enter Valid Height In cm</small>
+            <br>
+            <ion-item>
+              <ion-label position="floating">Enter Weight In kg</ion-label>
+              <ion-input type="number" name="weight" pattern="^[1-9]{1}[0-9]*" ngModel required #weight="ngModel">
+              </ion-input>
+            </ion-item>
+            <small style="color: red" *ngIf="!weight.valid">Please Enter Valid Weight In kg</small>
+            <br>
+            <br>
+            <ion-button type="submit" expand="full" [disabled]="!form.valid">Calculate</ion-button>
+          </form>
+
+          <ng-container *ngIf="BMI">
+            <br>
+            <h2><b>Calculated BMI: <span [ngStyle]=" { color: BMI <= 18.5 ? 'firebrick' : BMI <= 24.9 ? 'teal' : BMI <= 29.9 ? 'dodgerblue' : 'red' } ">{{ BMI }} kg/m<sup>2</sup></span></b></h2>
+            <ul>
+              <li style="font-weight: bold; color: firebrick">Underweight =&lt; 18.5</li>
+              <li style="font-weight: bold; color: teal">Normal weight = 18.5 – 24.9</li>
+              <li style="font-weight: bold; color: dodgerblue">Overweight = 25 – 29.9</li>
+              <li style="font-weight: bold; color: red">Obesity = BMI of 30 or greater</li>
+            </ul>
+          </ng-container>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </main>
+</ion-content>

@@ -1,0 +1,34 @@
+<ion-content>
+  <main>
+    <ion-item>
+      <ion-label (click)="showBasicPicker()">Select Class</ion-label>
+      <ion-label slot="end">{{ classSection ? classSection.class + " " + "'" + classSection.section + "'" : '' }}
+      </ion-label>
+    </ion-item>
+
+    <ion-segment (ionChange)="segmentChanged($event)" scrollable value="mon">
+      <ion-segment-button [value]="day" *ngFor="let day of days">
+        <ion-label>{{ day | titlecase }}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <ng-container *ngIf="!load; else loading">
+      <ion-list *ngIf="timetable; else err">
+        <ion-list-header mode="ios">{{ selectedDay | titlecase }}</ion-list-header>
+        <ng-container *ngFor="let x of [1,2,3,4,5,6,7,8,9,10]">
+          <ion-item *ngIf="timetable[selectedDay+x] != 'N/A'">{{ timetable[selectedDay+x] }}</ion-item>
+        </ng-container>
+      </ion-list>
+
+      <ng-template #err>
+        <h1 class="ion-text-center">No Timetable Found for {{ classSection ? classSection.class + " " + "'" + classSection.section + "'" : '' }}</h1>
+      </ng-template>
+    </ng-container>
+
+    <ng-template #loading>
+      <ion-item *ngFor="let i of [].constructor(10)">
+        <ion-skeleton-text animated style="height: 1rem;"></ion-skeleton-text>
+        <br>
+      </ion-item>
+    </ng-template>
+  </main>
+</ion-content>

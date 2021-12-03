@@ -1,0 +1,39 @@
+<ion-content>
+  <main>
+    <ion-card mode="ios" class="ion-no-padding">
+      <ion-card-header>
+        <ion-card-title>Gallery</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="ion-no-padding">
+        <ion-segment (ionChange)="segmentChanged($event)" scrollable value="grid" mode="md">
+          <ion-segment-button value="grid">
+            <ion-label>
+              <ion-icon name="grid-outline"></ion-icon>
+            </ion-label>
+          </ion-segment-button>
+
+          <ion-segment-button>
+            <ion-label>
+              <ion-icon name="image-outline"></ion-icon>
+            </ion-label>
+          </ion-segment-button>
+        </ion-segment>
+        <ion-grid class="ion-no-padding">
+          <ion-row *ngIf="gallery; else load">
+            <ion-col [size]="grid ? 4 : 12" *ngFor="let g of gallery" (click)="viewImg(g.image)">
+              <img [src]="path + g.image" [ngClass]="grid ? 'small' : 'large'" alt="">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ng-template #load>
+          <ion-row>
+            <ion-col [size]="grid ? 4 : 12" *ngFor="let i of [].constructor(10)">
+              <ion-skeleton-text animated [ngStyle]=" { 'height': grid ? '4rem' : '10rem' } "></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ng-template>
+      </ion-card-content>
+    </ion-card>
+  </main>
+</ion-content>

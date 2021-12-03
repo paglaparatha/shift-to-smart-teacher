@@ -1,0 +1,56 @@
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <main>
+    <ion-card mode="ios">
+      <ion-card-header>
+        <ion-card-title>Academic Calendar</ion-card-title>
+      </ion-card-header>
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ion-col size="3" class="ion-text-center">
+            <div class="ball red"></div>
+            <p>Holiday</p>
+          </ion-col>
+          <ion-col size="3" class="ion-text-center">
+            <div class="ball blue"></div>
+            <p>Exam</p>
+          </ion-col>
+          <ion-col size="3" class="ion-text-center">
+            <div class="ball green"></div>
+            <p>Event</p>
+          </ion-col>
+          <ion-col size="3" class="ion-text-center">
+            <div class="ball yellow"></div>
+            <p>Other</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ng-container *ngIf="!calendar">
+        <ion-skeleton-text animated style="width: 100%; height: 5rem; margin-bottom: 1rem;" *ngFor="let x of [].constructor(10)">
+        </ion-skeleton-text>
+      </ng-container>
+
+      <ion-list *ngIf="calendar">
+        <ion-item
+          [color]=" cal.type == 'holiday' ? 'danger' : cal.type == 'exam' ? 'primary' : cal.type == 'event' ? 'success' : 'warning' "
+          style="margin: 1rem auto;" *ngFor="let cal of calendar">
+          <ion-grid class="ion-no-padding">
+            <ion-row class="ion-padding">
+              <ion-col size="3" class="ion-text-center">
+                <ion-icon size="large" name="calendar"></ion-icon>
+                <br>
+                <small>{{ cal.date | date }}</small>
+              </ion-col>
+              <ion-col size="9">
+                <h4 style="padding-left: 1rem;">{{ cal.name }}</h4>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+  </main>
+</ion-content>

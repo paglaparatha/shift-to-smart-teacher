@@ -1,0 +1,39 @@
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <main>
+    <h1 class="ion-padding" style="font-weight: bolder;">Exam Schedules</h1>
+
+    <ng-container *ngIf="schedule; else load">
+      <ion-card mode="ios" *ngFor="let sc of schedule">
+        <ion-card-header mode="md">
+          <ion-card-title>{{ sc.title }}</ion-card-title>
+          <ion-card-subtitle>
+            Class: {{ sc.class }} "{{ sc.section | uppercase }}"
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <a [href]="getSafeUrl(sc.file)" target="_blank">
+            <ion-button expand="full">View</ion-button>
+          </a>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+
+    <ng-template #load>
+      <ion-card mode="ios" *ngFor="let sc of [].constructor(10)">
+        <ion-card-header mode="md">
+          <ion-card-title><ion-skeleton-text animated style="height: 1rem;"></ion-skeleton-text></ion-card-title>
+          <ion-card-subtitle>
+            <ion-skeleton-text animated style="width: 40%; height: 0.9rem;"></ion-skeleton-text>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-skeleton-text animated style="height: 2rem;"></ion-skeleton-text>
+        </ion-card-content>
+      </ion-card>
+    </ng-template>
+  </main>
+</ion-content>
