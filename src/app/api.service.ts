@@ -17,14 +17,35 @@ import { SUBJECT } from './models/subjects.model';
 import { DIARY } from './models/diary.model'
 import { SYLLABUS } from './models/syllabus.model';
 import { REQUESTS } from './models/request.model';
+import { NOTIFICATION } from './models/notification.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  teacher = new BehaviorSubject<TEACHER_DATA>(JSON.parse(localStorage.getItem('sts-teacher') || null))
+  teacher = new BehaviorSubject<TEACHER_DATA>(JSON.parse(localStorage.getItem('sts-teacher') ?? null))
+  notifications = new BehaviorSubject<NOTIFICATION>(JSON.parse(localStorage.getItem('teacher-notifications')) ?? {
+    message: 0,
+    request: 0
+  });
+
   constructor(private http: HttpClient, private router: Router) { }
+
+  onNotificationRecieved(type: string) {
+    const newNotifications = this.notifications.value;
+    newNotifications[type] = newNotifications[type] + 1;
+    this.notifications.next({ ...newNotifications })
+    localStorage.setItem('teacher-notifications', JSON.stringify(newNotifications))
+  }
+
+  onResetNotificationCount(type: string) {
+    const newNotifications = this.notifications.value;
+    newNotifications[type] = 0;
+    this.notifications.next({ ...newNotifications })
+    localStorage.setItem('teacher-notifications', JSON.stringify(newNotifications))
+  }
+
 
   onLogin(form) {
     return this.http.post<RESPONSE>(`${BASE}`, form, { observe: 'response' })
@@ -55,6 +76,13 @@ export class ApiService {
         this.teacher.next(res)
         return res
       }))
+  }
+
+  onSendOID(oid) {
+    const form = new FormData()
+    form.append('oid', oid)
+    form.append('onesignal', 'true')
+    return this.http.post(`${BASE}?key=${this.key}`, form)
   }
 
   onGetSchoolAdmins() {
@@ -204,5 +232,23 @@ export class ApiService {
 
   onDeleteRequest(id: number) {
     return this.http.get<RESPONSE>(`${BASE}?key=${this.key}&del-requests=${id}`)
+  }
+
+  onAcceptRequest(id: number) {
+    const form = new FormData();
+    form.append('update-request', 'true');
+    form.append('request', id.toString());
+    form.append('status', 'accepted');
+
+    return this.http.post<RESPONSE>(`${BASE}?key=${this.key}`, form)
+  }
+
+  onRejectRequest(id: number) {
+    const form = new FormData();
+    form.append('update-request', 'true');
+    form.append('request', id.toString());
+    form.append('status', 'rejected');
+
+    return this.http.post<RESPONSE>(`${BASE}?key=${this.key}`, form)
   }
 }

@@ -56,6 +56,7 @@
             <div class="tile ion-text-center indigo" routerLink="/messages">
               <ion-icon name="chatbubble" size="large"></ion-icon>
               <h5>Messages</h5>
+              <div class="indicator" *ngIf="notifications.message > 0"></div>
             </div>
           </ion-col>
 
@@ -77,6 +78,7 @@
             <div class="tile ion-text-center red flip" routerLink="/requests">
               <ion-icon name="hand-left" size="large"></ion-icon>
               <h5>Raised Requests</h5>
+              <div class="indicator" *ngIf="notifications.request > 0"></div>
             </div>
           </ion-col>
 

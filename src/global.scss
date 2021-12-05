@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -60,6 +60,22 @@ main {
 form {
   .ion-dirty.ion-invalid + .invalid-feedback {
     visibility: visible;
+  }
+}
+
+.indicator {
+  position: absolute;
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 50%;
+  background: var(--tile-color);
+  top: 0.5rem;
+  right: 0.5rem;
+
+  &__sidebar {
+    top: 50%;
+    right: 1.5rem;
+    transform: translateY(-50%);
   }
 }
 

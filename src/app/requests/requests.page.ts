@@ -19,6 +19,8 @@ export class RequestsPage implements OnInit {
 
   ionViewWillEnter() {
     this.onGetRequests()
+
+    this.api.onResetNotificationCount('request');
   }
 
   onGetRequests() {
@@ -27,14 +29,34 @@ export class RequestsPage implements OnInit {
     })
   }
 
-  onDeleteRequests(id: number) {
-    presentAlertConfirm(this.alertCTRL, 'Attention', 'Are you sure you want to delete this request? This would indicate that the request has been fulfilled.', () => {
-      this.api.onDeleteRequest(id).subscribe(res => {
-        if (res.status == 'success') {
-          this.onGetRequests()
+  onAcceptRequest(id: number, index: number) {
+    presentAlertConfirm(this.alertCTRL, 'Attention', 'Are you sure you want to accept this request?', () => {
+      this.api.onAcceptRequest(id).subscribe(res => {
+        if (res.status === 'success') {
+          this.requests.splice(index, 1)
         }
       })
     })
   }
+
+  onRejectRequest(id: number, index: number) {
+    presentAlertConfirm(this.alertCTRL, 'Attention', 'Are you sure you want to reject this request?', () => {
+      this.api.onRejectRequest(id).subscribe(res => {
+        if (res.status === 'success') {
+          this.requests.splice(index, 1)
+        }
+      })
+    })
+  }
+
+  // onDeleteRequests(id: number) {
+  //   presentAlertConfirm(this.alertCTRL, 'Attention', 'Are you sure you want to delete this request? This would indicate that the request has been fulfilled.', () => {
+  //     this.api.onDeleteRequest(id).subscribe(res => {
+  //       if (res.status == 'success') {
+  //         this.onGetRequests()
+  //       }
+  //     })
+  //   })
+  // }
 
 }

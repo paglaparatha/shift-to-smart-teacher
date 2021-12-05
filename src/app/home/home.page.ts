@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ApiService } from '../api.service';
+import { NOTIFICATION } from '../models/notification.model';
 import { TEACHER_DATA } from '../models/teacher.model';
 import { PATH } from '../utils';
 
@@ -14,11 +15,17 @@ export class HomePage implements OnInit, OnDestroy {
   userSub: Subscription
   user: TEACHER_DATA
   path: string = PATH
+  notificationsSub: Subscription
+  notifications: NOTIFICATION
   constructor(private api: ApiService) { }
 
   ngOnInit(): void {
     this.userSub = this.api.teacher.subscribe(data => {
       this.user = data
+    })
+
+    this.notificationsSub = this.api.notifications.subscribe(data => {
+      this.notifications = data;
     })
   }
 
@@ -40,6 +47,7 @@ export class HomePage implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
+    this.notificationsSub.unsubscribe();
   }
 
 }

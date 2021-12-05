@@ -8,4 +8,5 @@ export interface REQUESTS {
   name: string
   "class": string
   section: string
+  status: 'accepted' | 'rejected' | 'pending'
 }

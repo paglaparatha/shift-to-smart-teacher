@@ -37,6 +37,8 @@ export class LoginPage implements OnInit {
         form.reset()
         this.loading = false
       }
+    }, err => {
+      presentAlert(this.alertCtrl, 'Error', 'There was error. Please check your internet connection and try again.')
     })
   }
 

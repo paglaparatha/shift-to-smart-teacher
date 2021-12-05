@@ -19,6 +19,8 @@ export class MessagesPage implements OnInit {
     this.api.onGetMessages().subscribe(res => {
       this.messages = res
     })
+
+    this.api.onResetNotificationCount('message');
   }
 
   onDelete(id: number) {
